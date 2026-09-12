@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Swing Cave Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="canvas"></canvas>
+
+    <div id="ui">
+      <div class="hud">
+        <div class="hud-item">
+          <div class="hud-label">Score</div>
+          <div class="hud-value" id="score">0</div>
+        </div>
+        <div class="hud-item">
+          <div class="hud-label">Stars</div>
+          <div class="hud-value" id="stars">0</div>
+        </div>
+        <div class="hud-item">
+          <div class="hud-label">Best</div>
+          <div class="hud-value best" id="best">0</div>
+        </div>
+      </div>
+      <div id="mode-indicator">MEDIUM</div>
+      <div id="combo">COMBO x2</div>
+      <button type="button" id="pause-btn" title="Pause">⏸</button>
+    </div>
+
+    <div id="start-screen" class="screen">
+      <div class="start-inner">
+        <h1>Swing Cave</h1>
+        <p class="start-desc">Ayunkan bola glowing, kumpulkan bintang, raih skor tertinggi!</p>
+        <button type="button" class="btn" id="start-btn">Mulai</button>
+        <div id="instructions">Tahan = nyangkut &amp; ayun · Lepas = jatuh<br>Hindari jebakan merah!</div>
+        <div class="author">Author : Official Marz57</div>
+      </div>
+    </div>
+
+    <div id="mode-screen" class="screen hidden">
+      <h2 class="mode-title">Pilih Mode</h2>
+      <div class="mode-select">
+        <div class="mode-buttons vertical" id="start-mode-buttons">
+          <button type="button" class="mode-btn mode-easy" data-mode="easy">Easy</button>
+          <button type="button" class="mode-btn mode-medium active" data-mode="medium">Medium</button>
+          <button type="button" class="mode-btn mode-hard" data-mode="hard">Hard</button>
+          <button type="button" class="mode-btn mode-wni" data-mode="wni">WNI 🗿</button>
+        </div>
+        <div class="mode-desc" id="mode-desc-start">Trap 25% — Medium</div>
+      </div>
+      <button type="button" class="btn" id="play-btn">Mainkan</button>
+      <button type="button" class="btn secondary" id="back-btn">Kembali</button>
+    </div>
+
+    <div id="gameover-screen" class="screen hidden">
+      <h1>Game Over</h1>
+      <div class="score-big" id="final-score">0</div>
+      <div class="stars-row">★ <span id="final-stars">0</span> bintang</div>
+      <button type="button" class="btn" id="retry-btn">Main Lagi</button>
+      <button type="button" class="btn secondary" id="menu-btn">Menu</button>
+    </div>
+
+    <div id="pause-screen" class="screen hidden">
+      <h1>Jeda</h1>
+      <div class="mode-select">
+        <div class="mode-label">Mode Kesulitan</div>
+        <div class="mode-buttons vertical" id="pause-mode-buttons">
+          <button type="button" class="mode-btn mode-easy" data-mode="easy">Easy</button>
+          <button type="button" class="mode-btn mode-medium active" data-mode="medium">Medium</button>
+          <button type="button" class="mode-btn mode-hard" data-mode="hard">Hard</button>
+          <button type="button" class="mode-btn mode-wni" data-mode="wni">WNI 🗿</button>
+        </div>
+        <div class="mode-desc" id="mode-desc">Trap 25% — Medium</div>
+      </div>
+      <button type="button" class="btn" id="resume-btn">Lanjutkan</button>
+      <button type="button" class="btn secondary" id="pause-menu-btn">Menu Utama</button>
+    </div>
+
+    <div id="countdown-overlay" class="countdown-overlay hidden">
+      <div id="countdown-number">3</div>
+    </div>
+  </div>
+
+  <script src="assets/js/logic.js"></script>
+</body>
+</html>

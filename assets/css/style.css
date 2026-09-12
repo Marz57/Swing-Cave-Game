@@ -1,0 +1,385 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: #0a0a1a;
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  position: fixed;
+  inset: 0;
+}
+#game-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #0a0a1a;
+  touch-action: none;
+}
+
+/* ===== HUD ===== */
+#ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 56px 8px 16px; /* kanan longgar untuk pause */
+  background: linear-gradient(180deg, rgba(10,15,40,0.85) 0%, transparent 100%);
+}
+.hud-item {
+  text-align: center;
+  min-width: 64px;
+}
+.hud-label {
+  font-size: 10px;
+  color: #7eb8ff;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.hud-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #e8f4ff;
+}
+.hud-value.best {
+  color: #ffd54a;
+}
+
+/* Mode yang sedang jalan */
+#mode-indicator {
+  position: absolute;
+  top: 58px;
+  left: 16px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(0, 114, 255, 0.25);
+  border: 1px solid rgba(0, 180, 255, 0.45);
+  color: #7ecbff;
+  pointer-events: none;
+}
+#mode-indicator.easy {
+  background: rgba(20, 180, 80, 0.25);
+  border-color: rgba(50, 220, 100, 0.5);
+  color: #6dff9a;
+}
+#mode-indicator.medium {
+  background: rgba(0, 114, 255, 0.25);
+  border-color: rgba(0, 180, 255, 0.45);
+  color: #7ecbff;
+}
+#mode-indicator.hard {
+  background: rgba(220, 40, 40, 0.25);
+  border-color: rgba(255, 80, 80, 0.5);
+  color: #ff8a8a;
+}
+#mode-indicator.wni {
+  background: linear-gradient(90deg, rgba(227,28,37,0.35), rgba(255,255,255,0.15), rgba(227,28,37,0.35));
+  background-size: 200% 100%;
+  animation: wniShift 2.5s linear infinite;
+  border-color: rgba(255, 200, 200, 0.5);
+  color: #fff;
+}
+
+#combo {
+  position: absolute;
+  top: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #00ffc8;
+  text-shadow: 0 0 12px rgba(0,255,200,0.7);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+#combo.show { opacity: 1; }
+
+/* Pause — pojok kanan atas, tidak nutupin Best */
+#pause-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(30,50,100,0.85);
+  border: 2px solid rgba(100,160,255,0.55);
+  color: #a0cfff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  z-index: 20;
+}
+#pause-btn:active { transform: scale(0.92); }
+
+/* ===== Screens ===== */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 8, 25, 0.94);
+  z-index: 30;
+  color: #e0f0ff;
+  text-align: center;
+  padding: 24px 20px;
+  pointer-events: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.screen.hidden {
+  display: none !important;
+}
+
+.start-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 360px;
+  height: 100%;
+  min-height: 100%;
+  padding-bottom: 48px; /* ruang untuk author di bawah */
+}
+
+.screen h1,
+.mode-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg, #00e5ff, #7b5cff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.mode-title {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+.start-desc {
+  font-size: 0.9rem;
+  color: #8aa8cc;
+  line-height: 1.45;
+  margin-bottom: 28px;
+  max-width: 280px;
+  font-weight: 400;
+}
+
+#instructions {
+  margin-top: 28px;
+  font-size: 0.8rem;
+  color: #6a88aa;
+  line-height: 1.5;
+}
+
+.author {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: #4a6a90;
+  text-transform: uppercase;
+}
+
+/* Buttons */
+.btn {
+  pointer-events: auto;
+  border: none;
+  border-radius: 16px;
+  padding: 14px 36px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  box-shadow: 0 6px 20px rgba(0, 140, 255, 0.35);
+  cursor: pointer;
+  min-width: 160px;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.btn:active { transform: scale(0.97); opacity: 0.95; }
+.btn.secondary {
+  margin-top: 12px;
+  background: rgba(40, 60, 100, 0.6);
+  border: 2px solid rgba(100, 160, 255, 0.3);
+  box-shadow: none;
+  color: #b0c8e8;
+}
+
+/* Mode select */
+.mode-select {
+  margin: 8px 0 20px;
+  width: 100%;
+  max-width: 280px;
+  position: relative;
+  z-index: 5;
+  pointer-events: auto;
+}
+.mode-label {
+  font-size: 12px;
+  color: #7eb8ff;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.mode-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+.mode-buttons.vertical {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+.mode-btn {
+  pointer-events: auto;
+  padding: 15px 18px;
+  min-height: 52px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.08rem;
+  font-weight: 600;
+  border: 2px solid rgba(100, 160, 255, 0.3);
+  border-radius: 14px;
+  background: rgba(30, 50, 100, 0.45);
+  color: #b8d4ff;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s, color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.mode-btn:active { opacity: 0.9; }
+
+/* Warna saat dipilih */
+.mode-btn.mode-easy.active {
+  background: linear-gradient(135deg, #1fd67a, #0b9b4a) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  box-shadow: 0 4px 18px rgba(30, 200, 100, 0.45);
+}
+.mode-btn.mode-medium.active {
+  background: linear-gradient(135deg, #00c6ff, #0072ff) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  box-shadow: 0 4px 18px rgba(0, 150, 255, 0.45);
+}
+.mode-btn.mode-hard.active {
+  background: linear-gradient(135deg, #ff3b3b, #c01010) !important;
+  border-color: transparent !important;
+  color: #fff !important;
+  box-shadow: 0 4px 18px rgba(255, 50, 50, 0.45);
+}
+.mode-btn.mode-wni.active {
+  background: linear-gradient(120deg, #e31c25, #ffffff, #e31c25, #ffffff, #e31c25) !important;
+  background-size: 300% 300% !important;
+  animation: wniSpin 2s linear infinite;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  color: #1a1a1a !important;
+  box-shadow: 0 4px 20px rgba(227, 28, 37, 0.4);
+  font-weight: 700;
+}
+
+@keyframes wniSpin {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+@keyframes wniShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.mode-desc {
+  margin-top: 14px;
+  font-size: 0.88rem;
+  color: #9ab8e0;
+}
+
+/* Game over */
+.score-big {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 8px 0 4px;
+}
+.stars-row {
+  color: #ffd54a;
+  margin-bottom: 24px;
+  font-size: 1.1rem;
+}
+
+/* Countdown */
+.countdown-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 8, 25, 0.55);
+  z-index: 40;
+  pointer-events: none;
+}
+.countdown-overlay.hidden {
+  display: none;
+}
+#countdown-number {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 6rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(0, 200, 255, 0.8), 0 0 80px rgba(0, 150, 255, 0.5);
+  animation: countdownPop 0.9s ease-out;
+}
+@keyframes countdownPop {
+  0%   { transform: scale(0.3); opacity: 0; }
+  40%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.85; }
+}
