@@ -541,8 +541,8 @@ function update(dt) {
     gameOver();
   }
 
-  if (!ball.attached && Math.abs(ball.vy) > 8) ball.face = 'wow';
-  else if (ball.attached && Math.abs(ball.angVel) < 0.01) ball.face = 'sleepy';
+  if (!ball.attached) ball.face = 'wow';
+  else if (Math.abs(ball.angVel) < 0.01) ball.face = 'sleepy';
   else ball.face = 'happy';
 
   updateHUD();
