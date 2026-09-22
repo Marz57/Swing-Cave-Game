@@ -1,4 +1,4 @@
-# 🎮 SWING CAVE GAMES
+# 🎮 SWING CAVE GAME
 
 ***Preview 1***
 <img src="preview-1.png" alt="Logo" width="200">
@@ -9,7 +9,7 @@
 ***Preview 3***
 <img src="preview-3.png" alt="Logo" width="200">
 
-**SWING CAVE GAMES** adalah game browser berbasis **HTML, CSS, Vanilla JavaScript, dan HTML5 Canvas**.
+**SWING CAVE GAME** adalah game browser berbasis **HTML, CSS, Vanilla JavaScript, dan HTML5 Canvas**.
 
 Game ini dibuat oleh **Official Marz57** dan dapat dijalankan di browser menggunakan local server, sehingga bisa dimainkan **secara offline** setelah seluruh file project tersedia di perangkat.
 
@@ -32,7 +32,7 @@ Game ini dibuat oleh **Official Marz57** dan dapat dijalankan di browser menggun
 Contoh struktur folder:
 
 ```text
-SWING-CAVE-GAMES/
+Swing-Cave-Game/
 ├── assets/
 │   └── css
 │       └── style.css
@@ -59,8 +59,8 @@ SWING-CAVE-GAMES/
 Jika menggunakan Git:
 
 ```bash
-git clone https://github.com/Marz57/Swing-Cave-Games
-cd Swing-Cave-Games
+git clone https://github.com/Marz57/Swing-Cave-Game
+cd Swing-Cave-Game
 ```
 
 Atau download repository sebagai ZIP lalu extract.
@@ -110,13 +110,13 @@ sudo systemctl status apache2
 Dari folder project:
 
 ```bash
-sudo cp -r . /var/www/html/swing-cave-games
+sudo cp -r . /var/www/html/Swing-Cave-Game
 ```
 
 Kemudian buka browser:
 
 ```text
-http://localhost/swing-cave-games/
+http://localhost/Swing-Cave-Game/
 ```
 
 ### Menghentikan Apache
@@ -134,7 +134,7 @@ Jika Python sudah terpasang, Apache tidak diperlukan.
 Masuk ke folder game:
 
 ```bash
-cd SWING-CAVE-GAMES
+cd Swing-Cave-Game
 ```
 
 Jalankan (jalankan di dalam folder game nya):
@@ -158,7 +158,7 @@ CTRL + C
 ### Windows
 
 ```cmd
-cd SWING-CAVE-GAMES
+cd Swing-Cave-Game
 python -m http.server 8000
 ```
 
@@ -192,7 +192,7 @@ termux-setup-storage
 Contoh jika game berada di Downloads:
 
 ```bash
-cd ~/storage/downloads/SWING-CAVE-GAMES
+cd ~/storage/downloads/Swing-Cave-Game
 ```
 
 ## 4. Jalankan server
@@ -228,7 +228,7 @@ CTRL + C
 Jika PHP sudah terpasang:
 
 ```bash
-cd SWING-CAVE-GAMES
+cd Swing-Cave-Game
 php -S localhost:8000
 ```
 
@@ -303,7 +303,7 @@ Local Server
        ↓
 Browser
        ↓
-🎮 SWING CAVE GAMES
+🎮 Swing Cave Game
 ```
 
 Tidak diperlukan:
@@ -363,7 +363,7 @@ Tidak menggunakan game engine khusus.
 
 **Official Marz57**
 
-**Project:** SWING CAVE GAMES
+**Project:** SWING CAVE GAME
 
 ---
 
