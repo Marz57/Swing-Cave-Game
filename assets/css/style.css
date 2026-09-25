@@ -30,6 +30,15 @@ canvas {
   touch-action: none;
 }
 
+.myweb {
+  padding-bottom:30px;
+}
+
+.myweb a {
+  padding-bottom:50px !important;
+  text-decoration: none;
+  color: inherit;
+}
 /* ===== HUD ===== */
 #ui {
   position: absolute;
